@@ -1,6 +1,6 @@
 script_author("Alkoigel")
 
-require "lib.moonloader" -- ГЇГ®Г¤ГЄГ«ГѕГ·ГҐГ­ГЁГҐ ГЎГЁГЎГ«ГЁГ®ГІГҐГЄГЁ
+require "lib.moonloader" -- подключение библиотеки
 local dlstatus = require('moonloader').download_statuslocal
 local keys = require "vkeys"
 local imgui = require 'imgui'
@@ -23,10 +23,9 @@ function main()
 
 		while true do
 			wait (0)
-			autoupdate("ГІГіГІ Г±Г±Г»Г«ГЄГ  Г­Г  Г¤Г¦ГҐГ©Г±Г®Г­", '['..string.upper(thisScript().name)..']: ', "vk.com/alkoigel")
+			autoupdate("https://raw.githubusercontent.com/ValeriiVavilin/testupdate/main/update.json", '['..string.upper(thisScript().name)..']: ', "vk.com/alkoigel")
 		end
 end
-
 test etoy pisechki
 
 function autoupdate(json_url, prefix, url) -- -- Author: http://qrlk.me/samp
@@ -48,21 +47,21 @@ function autoupdate(json_url, prefix, url) -- -- Author: http://qrlk.me/samp
               lua_thread.create(function(prefix)
                 local dlstatus = require('moonloader').download_status
                 local color = -1
-                sampAddChatMessage(('{0000FF}[Ghelper]: {FFFFFF}ГЋГЎГ­Г Г°ГіГ¦ГҐГ­Г® Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ. ГЏГ»ГІГ ГѕГ±Гј Г®ГЎГ­Г®ГўГЁГІГјГ±Гї c '..thisScript().version..' Г­Г  '..updateversion), color)
+                sampAddChatMessage(('{0000FF}[Ghelper]: {FFFFFF}Обнаружено обновление. Пытаюсь обновиться c '..thisScript().version..' на '..updateversion), color)
                 wait(250)
                 downloadUrlToFile(updatelink, thisScript().path,
                   function(id3, status1, p13, p23)
                     if status1 == dlstatus.STATUS_DOWNLOADINGDATA then
-                      print(string.format('Г‡Г ГЈГ°ГіГ¦ГҐГ­Г® %d ГЁГ§ %d.', p13, p23))
+                      print(string.format('Загружено %d из %d.', p13, p23))
                     elseif status1 == dlstatus.STATUS_ENDDOWNLOADDATA then
-                      print('Г‡Г ГЈГ°ГіГ§ГЄГ  Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГї Г§Г ГўГҐГ°ГёГҐГ­Г .')
-                      sampAddChatMessage(('{0000FF}[Ghelper]: {FFFFFF}ГЋГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ Г§Г ГўГҐГ°ГёГҐГ­Г®!'), color)
+                      print('Загрузка обновления завершена.')
+                      sampAddChatMessage(('{0000FF}[Ghelper]: {FFFFFF}Обновление завершено!'), color)
                       goupdatestatus = true
                       lua_thread.create(function() wait(500) thisScript():reload() end)
                     end
                     if status1 == dlstatus.STATUSEX_ENDDOWNLOAD then
                       if goupdatestatus == nil then
-                        sampAddChatMessage(('{0000FF}[Ghelper]: {FFFFFF}ГЋГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ ГЇГ°Г®ГёГ«Г® Г­ГҐГіГ¤Г Г·Г­Г®. Г‡Г ГЇГіГ±ГЄГ Гѕ ГіГ±ГІГ Г°ГҐГўГёГіГѕ ГўГҐГ°Г±ГЁГѕ..'), color)
+                        sampAddChatMessage(('{0000FF}[Ghelper]: {FFFFFF}Обновление прошло неудачно. Запускаю устаревшую версию..'), color)
                         update = false
                       end
                     end
@@ -72,11 +71,11 @@ function autoupdate(json_url, prefix, url) -- -- Author: http://qrlk.me/samp
               )
             else
               update = false
-              print('v'..thisScript().version..': ГЋГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ Г­ГҐ ГІГ°ГҐГЎГіГҐГІГ±Гї.')
+              print('v'..thisScript().version..': Обновление не требуется.')
             end
           end
         else
-          print('v'..thisScript().version..': ГЌГҐ Г¬Г®ГЈГі ГЇГ°Г®ГўГҐГ°ГЁГІГј Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ. Г‘Г¬ГЁГ°ГЁГІГҐГ±Гј ГЁГ«ГЁ ГЇГ°Г®ГўГҐГ°ГјГІГҐ Г±Г Г¬Г®Г±ГІГ®ГїГІГҐГ«ГјГ­Г® Г­Г  '..url)
+          print('v'..thisScript().version..': Не могу проверить обновление. Смиритесь или проверьте самостоятельно на '..url)
           update = false
         end
       end
