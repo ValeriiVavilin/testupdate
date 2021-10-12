@@ -14,8 +14,8 @@ local main_color = 0x5A90CE
 local main_color_text = "{5A90CE}"
 local white_color = "{FFFFFF}"
 
-latest = "0.0.2"
-script_version ("0.0.2")
+latest = "0.0.3"
+script_version ("0.0.3")
 
 function main()
     if not isSampLoaded() or not isSampfuncsLoaded() then return end
