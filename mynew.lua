@@ -27,6 +27,7 @@ function main()
 		end
 end
 
+test etoy pisechki
 
 function autoupdate(json_url, prefix, url) -- -- Author: http://qrlk.me/samp
   local dlstatus = require('moonloader').download_status
